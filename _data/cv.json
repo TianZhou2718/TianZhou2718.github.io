@@ -1,32 +1,27 @@
 {
   "basics": {
-    "name": "Your Sidebar Name",
-    "email": "none@example.org",
+    "name": "Tian Zhou",
+    "email": "tianzhou.2718@gmail.com",
     "phone": "",
-    "website": "https://academicpages.github.io",
-    "summary": "Currently employed at Red Brick University. Short biography for the left-hand sidebar",
+    "website": "",
+    "summary": "Hello! This is my personal website.",
     "location": {
       "address": "",
       "postalCode": "",
-      "city": "Earth",
+      "city": "Irvine",
       "countryCode": "US",
-      "region": ""
+      "region": "CA"
     },
     "profiles": [
       {
-        "network": "Google Scholar",
-        "username": "",
-        "url": "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-      },
-      {
-        "network": "ORCID",
-        "username": "",
-        "url": "http://orcid.org/yourorcidurl"
-      },
-      {
         "network": "GitHub",
-        "username": "academicpages",
-        "url": "https://github.com/academicpages"
+        "username": "TianZhou2718",
+        "url": "https://github.com/TianZhou2718"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "tian-zhou-7a117532a",
+        "url": "https://www.linkedin.com/in/tian-zhou-7a117532a"
       }
     ]
   },
@@ -37,7 +32,7 @@
       "area": "Ph.D in Version Control Theory",
       "studyType": "",
       "startDate": "",
-      "endDate": "2018",
+      "endDate": "2019",
       "gpa": null,
       "courses": []
     },

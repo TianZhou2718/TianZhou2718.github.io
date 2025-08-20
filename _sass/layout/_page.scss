@@ -10,6 +10,8 @@
   padding-right: 1em;
   animation: intro 0.3s both;
   animation-delay: 0.35s;
+  
+  min-height: calc(100vh - 100pt); // subtract masthead height
 
   @include breakpoint($x-large) {
     max-width: $x-large;
@@ -20,7 +22,7 @@
   @include breakpoint($large) {
     @include span(10 of 12 last);
     @include prefix(0.5 of 12);
-    @include suffix(2 of 12);
+    @include suffix(0.5 of 12);
   }
 
   .page__inner-wrap {
@@ -34,8 +36,23 @@
   }
 }
 
+
+.page-no-sidebar {
+    margin: 0 auto;
+    float: none;
+    width: 80%;
+
+    .page__inner-wrap {
+        width: 100%;      // ensure inner wrap spans full width of page container
+      }
+
+    .sidebar {
+      display: none;        // hide sidebar completely
+    }
+}
+
 .page__title {
-  margin-top: 0;
+  margin: 1em 0;
   line-height: 1;
 
   & + .page__meta {
@@ -132,10 +149,6 @@
     .wrapper {
       padding-left: 1em;
       padding-right: 1em;
-
-      @include breakpoint($x-large) {
-        max-width: $x-large;
-      }
     }
 
     .page__title,

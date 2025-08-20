@@ -1,13 +1,10 @@
----
-permalink: /markdown/
-title: "Markdown"
-author_profile: true
-redirect_from: 
-  - /md/
-  - /markdown.html
----
-
 {% include toc %}
+
+## Local Development
+
+```
+bundle exec jekyll serve -l -H localhost
+```
 
 ## Locations of key files/directories
 

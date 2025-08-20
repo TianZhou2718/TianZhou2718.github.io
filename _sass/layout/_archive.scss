@@ -3,16 +3,20 @@
    ========================================================================== */
 
 .archive {
-  margin-bottom: 2em;
+    width: 80%;
+    margin: 0 auto;
+    float: none;
 
-  @include breakpoint($medium) {
-    @include span(12 of 12);
-  }
+    margin-bottom: 2em;
 
-  @include breakpoint($large) {
-    @include span(10 of 12 last);
-    @include prefix(0.5 of 12);
-  }
+    // @include breakpoint($medium) {
+    //     @include span(10 of 12);
+    // }
+
+    // @include breakpoint($large) {
+    //     @include span(10 of 12);
+    //     @include prefix(0 of 12);
+    // }
 
   a {
     text-decoration: underline;
@@ -28,7 +32,7 @@
 }
 
 .archive__subtitle {
-  margin: 1.414em 0 0;
+  margin: 1.414em 0 1em;
   padding-bottom: 0.5em;
   font-size: $type-size-5;
   color: var(--global-text-color-light);
@@ -40,7 +44,7 @@
 }
 
 .archive__item-title {
-  margin-bottom: 0.25em;
+  margin: 15pt 0;
   font-family: $sans-serif-narrow;
 
   a + a {
@@ -50,6 +54,7 @@
 
 /* remove border*/
 .page__content {
+    margin-top: 1em;
 
   .archive__item-title {
     margin-top: 1em;
@@ -57,9 +62,15 @@
   }
 }
 
+.page__date {
+  font-size: $type-size-5;
+  margin: 5pt 0;
+  color: var(--global-text-color-light);
+}
+
 .archive__item-excerpt {
-  margin-top: 0;
-  font-size: $type-size-6;
+  margin: 10pt 0;
+  font-size: $type-size-5;
 
   & + p {
     text-indent: 0;
@@ -90,20 +101,20 @@
    ========================================================================== */
 
 .list__item {
-  @include breakpoint($medium) {
-    padding-right: $right-sidebar-width-narrow;
-  }
+//   @include breakpoint($medium) {
+//     padding-right: $right-sidebar-width-narrow;
+//   }
 
-  @include breakpoint($large) {
-    padding-right: $right-sidebar-width;
-  }
+//   @include breakpoint($large) {
+//     padding-right: $right-sidebar-width;
+//   }
 
-  @include breakpoint($x-large) {
-    padding-right: $right-sidebar-width-wide;
-  }
+//   @include breakpoint($x-large) {
+//     padding-right: $right-sidebar-width-wide;
+//   }
 
   .page__meta {
-    margin: 0 0 4px;
+    margin: 7.5px 0;
   }
 }
 
@@ -116,7 +127,7 @@
   margin-bottom: 2em;
 
   .page__meta {
-    margin: 0 0 4px;
+    margin: 7.5px 0;
   }
 
   .archive__item-title {
