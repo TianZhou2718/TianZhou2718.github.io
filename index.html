@@ -92,6 +92,22 @@
 <link rel="stylesheet" href="https://tianzhou2718.github.io/assets/css/main.css">
 
 <meta http-equiv="cleartype" content="on">
+
+<!-- Analytics -->
+
+
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MPVSLXLKEM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MPVSLXLKEM');
+</script>
+
+
+
     
 
 <!-- start custom head snippets -->
@@ -190,6 +206,233 @@
       <section class="page__content" itemprop="text">
         <p>Hello, welcome to my personal website!</p>
 
+<div class="site-visits-panel">
+  <!-- Background decoration -->
+  <div class="background-decoration"></div>
+  
+  <div class="content-wrapper">
+    <h3 class="welcome-text">
+      Hey there, Welcome! This is the
+    </h3>
+    
+    <div class="stats-container">
+      <div class="stat-item">
+        <div id="visit-counter" class="visit-counter">
+          Loading...
+        </div>
+        <div class="visit-label">Visits</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counterPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.site-visits-panel {
+  background: linear-gradient(135deg, #ffffff 0%, #b8b6ba 100%);
+  padding: 20px 0 10pt;
+  border-radius: 15px;
+  margin: 50pt 0 0;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  text-align: center;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  float: none;
+  transition: all 0.3s ease;
+}
+
+.site-visits-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+}
+
+.background-decoration {
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-text {
+  margin: 0;
+  font-size: 1em;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0 5pt;
+}
+
+.stat-item {
+  flex: 1;
+  padding: 0 10px;
+  transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: scale(1.05);
+}
+
+.visit-counter {
+  font-size: 1.5em;
+  margin: 0 0 5pt;
+  font-weight: 400;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.visit-label {
+  font-size: 0.9em;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.counter-update {
+  animation: counterPulse 0.3s ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+  }
+  
+  .stat-item {
+    margin: 10px 0;
+  }
+  
+  #visit-counter {
+    font-size: 2em !important;
+  }
+}
+
+/* Dark theme support */
+[data-theme="dark"] .site-visits-panel {
+  background: linear-gradient(135deg, #474747 0%, #7a8288 100%) !important;
+}
+
+</style>
+
+<script>
+(function() {
+  let analyticsData = {
+    visits: 0,
+    source: 'local'
+  };
+
+  // Initialize localStorage data
+  function initializeLocalData() {
+    let visits = localStorage.getItem('siteVisitCount');
+    
+    if (visits === null) visits = 0;
+    
+    return {
+      visits: parseInt(visits)
+    };
+  }
+
+  // Increment local counters
+  function incrementLocalCounters() {
+    let data = initializeLocalData();
+    data.visits++;
+    localStorage.setItem('siteVisitCount', data.visits.toString());    
+    return data;
+  }
+
+  function formatNumberToHtml(num) {
+    const suffix_list = ["st", "nd", "rd"]
+    var suffix = "th";
+    if ((1 <= num % 10 && num % 10 <= 3) && !(11 <= num % 100 && num % 100 <= 13)) suffix = suffix_list[num % 10 - 1];
+
+    const suffix_str = '<span style="font-size: 0.6em; vertical-align: super;"> ' + suffix + '</span>';
+    return num.toLocaleString() + suffix_str;
+  }
+
+  // Update display with animation
+  function updateDisplay(data) {
+    const visitElement = document.getElementById('visit-counter');
+    
+    if (visitElement) {
+      // Animate visit counter
+      visitElement.style.transform = 'scale(1.1)';
+      visitElement.style.transition = 'transform 0.3s ease';
+      visitElement.innerHTML = formatNumberToHtml(data.visits);
+      
+      // Reset animations
+      setTimeout(() => {
+        visitElement.style.transform = 'scale(1)';
+      }, 300);
+    }
+  }
+
+  // Check if Google Analytics is available and try to get data
+  function checkGoogleAnalytics() {
+    // Check if Google Analytics 4 is loaded
+    if (typeof gtag !== 'undefined' && window.gtag) {
+      // Since we can't directly access GA data from client-side JavaScript
+      // (it requires server-side API calls), we'll use a combination approach:
+      // 1. Use localStorage for immediate feedback
+      // 2. Show that GA is active for tracking
+      
+      const localData = incrementLocalCounters();
+      analyticsData = {
+        visits: localData.visits,
+        source: 'google'
+      };
+      
+      updateDisplay(analyticsData);
+      return true;
+    }
+    
+    return false;
+  }
+
+  // Initialize analytics
+  function initializeAnalytics() {
+    // First try Google Analytics
+    if (!checkGoogleAnalytics()) {
+      // Fallback to localStorage
+      const data = incrementLocalCounters();
+      analyticsData = {
+        visits: data.visits,
+        source: 'local'
+      };
+      updateDisplay(analyticsData);
+    }
+  }
+
+  // Initialize when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAnalytics);
+  } else {
+    // If DOM is already loaded, wait a bit for GA to load
+    setTimeout(initializeAnalytics, 1000);
+  }
+})();
+</script>
+
+
 
         
 
@@ -264,6 +507,15 @@
 
 
 
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-MPVSLXLKEM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MPVSLXLKEM');
+</script>
 
 
 
