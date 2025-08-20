@@ -13,7 +13,7 @@ title                    : "Tian Zhou"
 title_separator          : "-"
 name                     : &name "Tian Zhou"
 description              : &description "personal description"
-url                      : https://github.com/TianZhou2718/TianZhou2718.github.io
+url                      : https://tianzhou2718.github.io
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "TianZhou2718/TianZhou2718.github.io"
 
