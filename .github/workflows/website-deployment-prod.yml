@@ -1,10 +1,17 @@
-name: Website Deployment (dev)
+name: Website Deployment (prod)
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "dev" ]
+    branches: ["main"]
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+        default: 'main'
+
 
 jobs:
   build:
@@ -13,6 +20,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch || github.ref_name }}
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
