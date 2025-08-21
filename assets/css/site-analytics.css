@@ -1,0 +1,106 @@
+/* Site Visits Counter Styles */
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes counterPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.site-analytics-panel {
+  background: linear-gradient(135deg, #ffffff 0%, #b8b6ba 100%);
+  padding: 20px 0 5pt;
+  border-radius: 15px;
+  margin: 50pt 0 0;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  text-align: center;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+  float: none;
+  transition: all 0.3s ease;
+}
+
+.site-analytics-panel:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+}
+
+.background-decoration {
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.welcome-text {
+  margin: 0 0 -5pt;
+  font-size: 1em;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 15px 0 5pt;
+}
+
+.stat-item {
+  flex: 1;
+  padding: 0 10px;
+  transition: transform 0.2s ease;
+}
+
+.stat-item:hover {
+  transform: scale(1.05);
+}
+
+.visit-counter {
+  font-size: 1.5em;
+  margin: 0;
+  font-weight: 400;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.visit-label {
+  font-size: 0.9em;
+  opacity: 0.9;
+  font-weight: 300;
+}
+
+.counter-update {
+  animation: counterPulse 0.3s ease-in-out;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .stats-container {
+    flex-direction: column;
+  }
+  
+  .stat-item {
+    margin: 10px 0;
+  }
+  
+  #analytics-visitor-counter {
+    font-size: 2em !important;
+  }
+}
+
+/* Dark theme support */
+[data-theme="dark"] .site-analytics-panel {
+  background: linear-gradient(135deg, #474747 0%, #7a8288 100%) !important;
+}
