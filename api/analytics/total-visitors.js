@@ -1,7 +1,17 @@
 // Google Analytics 4 Data API endpoint for fetching total visitors
 // This requires setting up a service account and enabling the GA4 Data API
 
-async function handler(req, res) {
+export default async function handler(req, res) {
+  // Set CORS headers for all responses
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Cache-Control, Accept');
+
+  // Handle preflight OPTIONS request
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   // Only allow GET requests
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -22,11 +32,16 @@ async function handler(req, res) {
     const { BetaAnalyticsDataClient } = require('@google-analytics/data');
     
     // Initialize the client with service account credentials
-    const analyticsDataClient = new BetaAnalyticsDataClient({
-      keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS || './service-account-key.json',
-      // Alternative: use environment variables for credentials
-      credentials: process.env.GOOGLE_CREDENTIALS ? JSON.parse(process.env.GOOGLE_CREDENTIALS) : undefined
-    });
+    let analyticsDataClient;
+    if (process.env.GOOGLE_CREDENTIALS) {
+      analyticsDataClient = new BetaAnalyticsDataClient({
+        credentials: JSON.parse(process.env.GOOGLE_CREDENTIALS)
+      });
+    } else {
+      analyticsDataClient = new BetaAnalyticsDataClient({
+        keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS || './service-account-key.json'
+      });
+    }
     
     // Fetch total users from GA4 - simplified query structure
     const [response] = await analyticsDataClient.runReport({
@@ -96,9 +111,3 @@ async function handler(req, res) {
     });
   }
 }
-
-// Export for CommonJS
-module.exports = { handler };
-
-// Also export as default for compatibility
-module.exports.default = handler;
