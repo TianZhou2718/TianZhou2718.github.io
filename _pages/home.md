@@ -9,4 +9,4 @@ redirect_from:
 
 Hello, welcome to my personal website!
 
-{% include site-visits-counter.html %}
+{% include site-analytics.html %}
