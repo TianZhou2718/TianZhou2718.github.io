@@ -1,0 +1,290 @@
+{% comment %}
+  Site Analytics Panel
+  This component displays real-time visitor statistics from Google Analytics 4 API
+{% endcomment %}
+
+<!-- Include the CSS file -->
+<link rel="stylesheet" href="{{ '/assets/css/site-analytics.css' | relative_url }}">
+
+<div class="site-analytics-panel">
+  <!-- Background decoration -->
+  <div class="background-decoration"></div>
+  
+  <div class="content-wrapper">
+    <h3 class="welcome-text">
+      Hey there, Welcome! You are the
+    </h3>
+    
+    <div class="stats-container">
+      <div class="stat-item">
+        <div id="analytics-visitor-counter" class="visit-counter">
+          Loading...
+        </div>
+        <div class="analytics-label">Visitor</div>
+        <div id="last-updated" class="last-updated" style="font-size: 0.6em; opacity: 0.7; margin-top: 5px;">
+          Connecting to GA4...
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  let analyticsData = {
+    totalUsers: 0,
+    activeUsers: 0,
+    totalPageViews: 0,
+    lastUpdated: null,
+    status: 'loading'
+  };
+
+  // Configuration
+  const API_CONFIG = {
+    baseUrl: 'https://tian-zhou2718-github-io.vercel.app/api/analytics/total-visitors',
+    propertyId: '502040277',
+    refreshInterval: 5 * 60 * 1000, // 5 minutes
+    retryInterval: 30 * 1000, // 30 seconds for retries
+    maxRetries: 3
+  };
+
+  let retryCount = 0;
+  let refreshTimer = null;
+
+  function formatNumberToHtml(num) {
+    const suffix_list = ["st", "nd", "rd"];
+    var suffix = "th";
+    if ((1 <= num % 10 && num % 10 <= 3) && !(11 <= num % 100 && num % 100 <= 13)) {
+      suffix = suffix_list[num % 10 - 1];
+    }
+
+    const suffix_str = '<span style="font-size: 0.6em; vertical-align: super;"> ' + suffix + '</span>';
+    return num.toLocaleString() + suffix_str;
+  }
+
+  function formatLastUpdated(timestamp) {
+    if (!timestamp) return 'Never updated';
+    
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffMs = now - date;
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMs / 3600000);
+    const diffDays = Math.floor(diffMs / 86400000);
+    
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    if (diffDays < 7) return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+    
+    return date.toLocaleDateString();
+  }
+
+  function updateDisplay(data) {
+    const visitElement = document.getElementById('analytics-visitor-counter');
+    const lastUpdatedElement = document.getElementById('last-updated');
+    
+    if (visitElement) {
+      // Animate visit counter
+      visitElement.style.transform = 'scale(1.1)';
+      visitElement.style.transition = 'transform 0.3s ease';
+      
+      // Show "Fetching" when loading, actual number when success
+      if (data.status === 'loading' || data.status === 'retrying') {
+        visitElement.innerHTML = 'Fetching...';
+      } else if (data.status === 'success') {
+        visitElement.innerHTML = formatNumberToHtml(data.totalUsers);
+      } else {
+        visitElement.innerHTML = '0';
+      }
+      
+      // Reset animations
+      setTimeout(() => {
+        visitElement.style.transform = 'scale(1)';
+      }, 300);
+    }
+    
+    if (lastUpdatedElement) {
+      let displayText = '';
+      let textColor = '';
+      
+      switch (data.status) {
+        case 'success':
+          displayText = `Last updated: ${formatLastUpdated(data.lastUpdated)}`;
+          textColor = '';
+          break;
+        case 'error':
+          displayText = '❌ Connection failed';
+          textColor = 'color: #dc3545;'; // Red color
+          break;
+        case 'loading':
+          displayText = 'Connecting to GA4...';
+          textColor = '';
+          break;
+        case 'retrying':
+          displayText = `🔄 Retrying... (${retryCount}/${API_CONFIG.maxRetries})`;
+          textColor = 'color: #fd7e14;'; // Orange color with original font size
+          break;
+        default:
+          displayText = 'Unknown status';
+          textColor = '';
+      }
+      const fontSize = "font-size: 0.53em; margin-top:4pt";
+      const style = textColor + fontSize;
+      
+      lastUpdatedElement.textContent = displayText;
+      lastUpdatedElement.style = style;
+    }
+  }
+
+  async function fetchGA4Data() {
+    try {
+      // Build API URL
+      let apiUrl = API_CONFIG.baseUrl;
+      if (API_CONFIG.propertyId) {
+        apiUrl += `?propertyId=${API_CONFIG.propertyId}`;
+      }
+      
+      // Fetch data from API
+      const response = await fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Cache-Control': 'no-cache'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      // Validate response data
+      if (data.error) {
+        throw new Error(data.error);
+      }
+      
+      if (typeof data.totalUsers !== 'number') {
+        throw new Error('Invalid response format: totalUsers is required');
+      }
+      
+      return {
+        totalUsers: data.totalUsers,
+        activeUsers: data.activeUsers || 0,
+        totalPageViews: data.totalPageViews || 0,
+        lastUpdated: data.lastUpdated || new Date().toISOString(),
+        status: 'success'
+      };
+      
+    } catch (error) {
+      console.log('Error fetching GA4 data:', error);
+      return {
+        totalUsers: 0,
+        activeUsers: 0,
+        totalPageViews: 0,
+        lastUpdated: null,
+        status: 'error',
+        error: error.message
+      };
+    }
+  }
+
+  function trackCurrentVisit() {
+    if (typeof gtag !== 'undefined' && window.gtag) {
+      try {
+        // Track this page view
+        gtag('event', 'page_view', {
+          'custom_parameter': 'analytics_panel',
+          'timestamp': Date.now(),
+          'page_title': document.title,
+          'page_location': window.location.href
+        });
+        
+        // Track analytics panel view
+        gtag('event', 'analytics_panel_view', {
+          'event_category': 'engagement',
+          'event_label': 'site_analytics',
+          'value': 1
+        });
+        
+        return true;
+      } catch (error) {
+        console.log('GA4 tracking failed:', error);
+        return false;
+      }
+    }
+    return false;
+  }
+
+  async function getVisitorData() {
+    // Update status to loading
+    analyticsData.status = 'loading';
+    updateDisplay(analyticsData);
+
+    // Fetch data from GA4 API
+    const ga4Data = await fetchGA4Data();
+    
+    if (ga4Data.status === 'success') {
+      // Success - reset retry count and update data
+      retryCount = 0;
+      analyticsData = ga4Data;
+      updateDisplay(analyticsData);
+      
+      // Set up next refresh
+      if (refreshTimer) clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(getVisitorData, API_CONFIG.refreshInterval);
+      
+      return ga4Data;
+    } else {
+      // Error - handle retry logic
+      analyticsData = ga4Data;
+      updateDisplay(analyticsData);
+      
+      if (retryCount < API_CONFIG.maxRetries) {
+        retryCount++;
+        analyticsData.status = 'retrying';
+        updateDisplay(analyticsData);
+        
+        // Retry after delay
+        setTimeout(getVisitorData, API_CONFIG.retryInterval);
+      } else {
+        // Max retries reached - show error and stop
+        analyticsData.status = 'error';
+        updateDisplay(analyticsData);
+        console.error('Failed to fetch GA4 data after', API_CONFIG.maxRetries, 'retries');
+      }
+      
+      return ga4Data;
+    }
+  }
+
+  async function initializeAnalytics() {
+    // Track the current visit
+    trackCurrentVisit();
+    
+    // Get initial visitor data
+    await getVisitorData();
+  }
+
+  // Manual refresh function
+  window.refreshAnalytics = async function() {
+    console.log('Manually refreshing analytics...');
+    retryCount = 0; // Reset retry count for manual refresh
+    await getVisitorData();
+    return analyticsData;
+  };
+
+  // Get current analytics data
+  window.getAnalyticsData = function() {
+    return analyticsData;
+  };
+
+  // Initialize when DOM is loaded
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeAnalytics);
+  } else {
+    setTimeout(initializeAnalytics, 1000);
+  }
+})();
+</script>
