@@ -24,6 +24,10 @@ jobs:
         with:
           ruby-version: '3.4.5'   # match your local Ruby version
           bundler-cache: true
+    
+      - name: Restore Google Service Account Key
+        run: |
+          echo "${{ secrets.GA_SERVICE_ACCOUNT }}" > api/service-account-key.json
 
       - name: Build with Jekyll
         run: bundle exec jekyll build --future
