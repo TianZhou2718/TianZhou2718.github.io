@@ -43,8 +43,8 @@
   const hostname = window.location.hostname;
   const API_CONFIG = {
     baseUrl: hostname.includes('localhost') ?
-    'https://tian-zhou2718-github-io-git-dev-tian-zhous-projects.vercel.app/api/analytics/total-visitors':
-    'https://tian-zhou2718-github-io.vercel.app/api/analytics/total-visitors', // detect local dev
+      'https://tian-zhou2718-github-io-git-dev-tian-zhous-projects.vercel.app/api/analytics/total-visitors':
+      'https://tian-zhou2718-github-io.vercel.app/api/analytics/total-visitors', // detect local dev
     propertyId: '502040277',
     refreshInterval: 10 * 60 * 1000, // 10 minutes
     retryInterval: 30 * 1000, // 30 seconds for retries
