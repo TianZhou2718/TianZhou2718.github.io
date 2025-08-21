@@ -244,9 +244,9 @@
 
   // Configuration
   const API_CONFIG = {
-    baseUrl: '/api/analytics/total-visitors',
+    baseUrl: 'https://tian-zhou2718-github-io-git-dev-tian-zhous-projects.vercel.app/api/analytics/total-visitors',
     propertyId: '502040277',
-    refreshInterval: 5 * 60 * 1000, // 5 minutes
+    refreshInterval: 10 * 60 * 1000, // 10 minutes
     retryInterval: 30 * 1000, // 30 seconds for retries
     maxRetries: 3
   };
@@ -349,6 +349,7 @@
       }
       
       // Fetch data from API
+      console.log("API invoked: " + apiUrl)
       const response = await fetch(apiUrl, {
         method: 'GET',
         headers: {
