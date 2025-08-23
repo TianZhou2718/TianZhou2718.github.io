@@ -1,4 +1,4 @@
-name: Website Deployment (prod)
+name: Website Deployment
 
 on:
   push:
@@ -6,11 +6,6 @@ on:
   pull_request:
     branches: ["main"]
   workflow_dispatch:
-    inputs:
-      branch:
-        description: 'Branch to deploy'
-        required: true
-        default: 'main'
 
 
 jobs:
@@ -28,10 +23,6 @@ jobs:
         with:
           ruby-version: '3.4.5'   # match your local Ruby version
           bundler-cache: true
-    
-      - name: Restore Google Service Account Key
-        run: |
-          echo "${{ secrets.GA_SERVICE_ACCOUNT }}" > api/service-account-key.json
 
       - name: Build with Jekyll
         run: bundle exec jekyll build --future
