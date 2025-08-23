@@ -19,7 +19,7 @@
 
 
 
-<title>About Me - Tian Zhou</title>
+<title>Tian Zhou</title>
 
 
 
@@ -65,7 +65,7 @@
 <!-- Open Graph protocol data (https://ogp.me/), used by social media -->
 <meta property="og:locale" content="en-US">
 <meta property="og:site_name" content="Tian Zhou"> 
-<meta property="og:title" content="About Me">
+<meta property="og:title" content="Tian Zhou">
 
 
 
@@ -192,9 +192,18 @@
 
 <div itemscope itemtype="http://schema.org/Person">
 
-  <div class="author__avatar">
+  <div class="author__avatar" style="margin-bottom: 1.5em;">
+    <!-- Custom avatar -->
     
-    	<img src="https://tianzhou2718.github.io/images/avatar.JPG" class="author__avatar" alt="Tian Zhou">
+      <img id="avatar-custom" src="https://tianzhou2718.github.io/images/avatar_alt.jpeg" class="author__avatar" alt="Tian Zhou" style="display: block; cursor: pointer;">
+    
+    <!-- Real avatar -->
+    
+      <img id="avatar-real" src="https://tianzhou2718.github.io/images/avatar.JPG" class="author__avatar" alt="Tian Zhou" style="display: none; cursor: pointer;">
+    
+    <div id="toggle-avatar-btn" style="margin-top: 5pt; cursor: pointer;">
+        <span style="display: block; text-align: center; margin: 0 auto; font-size: 8pt; color: var(--global-text-color-light);">Toggle Avatar</span>
+    </div>
     
   </div>
 
@@ -216,7 +225,7 @@
       
       
       
-        <li><a href="mailto:tianzhou.2718@gmail.org"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
+        <li><a href="mailto:tianzhou.2718@gmail.com"><i class="fas fa-fw fa-envelope icon-pad-right" aria-hidden="true"></i>Email</a></li>
       
 
       <!-- Font Awesome and Academicons icons / Academic websites -->
@@ -250,6 +259,8 @@
       
             
             
+      
+        <li><a href="https://www.linkedin.com/in/tian-zhou-7a117532a"><i class="fab fa-fw fa-linkedin icon-pad-right" aria-hidden="true"></i>LinkedIn</a></li>
             
       
             
@@ -269,6 +280,8 @@
   </div>
 </div>
 
+<script src="/assets/js/toggle_avatar.js"></script>
+
     
 
     
@@ -276,7 +289,7 @@
 
 
     <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="About Me">
+    
     
     
     
@@ -284,8 +297,7 @@
     <div class="page__inner-wrap">
       
         <header>
-          <h1 class="page__title" itemprop="headline">About Me
-</h1>
+          
           
         
         
@@ -294,38 +306,90 @@
       
 
       <section class="page__content" itemprop="text">
-        <p>Hello, my name is Tian Zhou, and I am a software development engineer. I have a strong enthusiasm for mathematics, with a particular interest in algebra.￼</p>
+        <h1 style="margin-top: 0em; margin-bottom: 1em">About Me</h2>
 
-<h2 id="education">Education</h2>
-<ul>
-  <li><strong>Mathematics (M.A.)</strong> @ Johns Hopkins University
-    <ul>
-      <li>August 2024 - May 2025</li>
-    </ul>
-  </li>
-  <li><strong>Computer Science (B.S.) &amp; Mathematics (B.A.)</strong> @ Johns Hopkins University
-    <ul>
-      <li>August 2022 - May 2025</li>
-    </ul>
-  </li>
-</ul>
+<div class="card">
+  <span class="card__icon"><i class="fas fa-user"></i></span>
+  <div>
+    <p style="margin-left: 0.5em; margin-bottom: 0;">
+      Hello, my name is Tian Zhou, and I am a software development engineer. I have a strong enthusiasm for mathematics, with a particular interest in algebra.
+    </p>
+  </div>
+</div>
 
-<h2 id="experience">Experience</h2>
+<h2 style="margin-top: 1.5em;">Education</h2>
+<div class="card">
+  <span class="card__icon"><img src="/images/jhu_icon.png" alt="JHU"></span>
+  <div style="flex: 1;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <div>
+        <strong class="card__title">Master's Degree in Mathematics (M.A.)</strong><br>
+        <span class="card__subtitle">Johns Hopkins University</span>
+      </div>
+      <div class="card__timeline">Aug 2024 - May 2025</div>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <span class="card__icon"><img src="/images/jhu_icon.png" alt="JHU"></span>
+  <div style="flex: 1;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <div>
+        <strong class="card__title">Bachelor's Degree in Computer Science (B.S.) and Mathematics (B.A.)</strong><br>
+        <span class="card__subtitle">Johns Hopkins University</span>
+      </div>
+      <div class="card__timeline">Aug 2022 - May 2025</div>
+    </div>
+  </div>
+</div>
 
-<ul>
-  <li><strong>Head Course Assistant</strong> @ Johns Hopkins University
-    <ul>
-      <li>August 2024 - May 2025 (10 mo.)</li>
-      <li>EN.601.433/633 Intro Algorithm</li>
-    </ul>
-  </li>
-  <li><strong>Course Assistant</strong> @ Johns Hopkins University
-    <ul>
-      <li>January 2024 - May 2024 (5 mo.)</li>
-      <li>EN.601.433/633 Intro Algorithm</li>
-    </ul>
-  </li>
-</ul>
+<h2 style="margin-top: 1.5em;">Experiences</h2>
+
+<div class="card">
+    <span class="card__icon"><img src="/images/aws_icon.png" alt="AWS"></span>
+    <div style="flex: 1;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+        <div>
+          <strong class="card__title">Software Development Engineer (SDE) Intern</strong><br>
+          <span class="card__subtitle">Amazon Web Service (AWS)</span>
+        </div>
+        <div class="card__timeline">May 2025 - Aug 2025 (4 mo.)</div>
+      </div>
+      <div class="card__content">
+        Glue - AI and Platform Excellence (APEX) team
+      </div>
+    </div>
+</div>
+<div class="card">
+  <span class="card__icon"><img src="/images/jhu_icon.png" alt="JHU"></span>
+  <div style="flex: 1;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <div>
+        <strong class="card__title">Head Course Assistant</strong><br>
+        <span class="card__subtitle">Johns Hopkins University</span>
+      </div>
+      <div class="card__timeline">Aug 2024 - May 2025 (10 mo.)</div>
+    </div>
+    <div class="card__content">
+      EN.601.433/633 Intro Algorithm
+    </div>
+  </div>
+</div>
+<div class="card">
+  <span class="card__icon"><img src="/images/jhu_icon.png" alt="JHU"></span>
+  <div style="flex: 1;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+      <div>
+        <strong class="card__title">Course Assistant</strong><br>
+        <span class="card__subtitle">Johns Hopkins University</span>
+      </div>
+      <div class="card__timeline"> Jan 2024 - May 2024 (5 mo.)</div>
+    </div>
+    <div class="card__content">
+      EN.601.433/633 Intro Algorithm
+    </div>
+  </div>
+</div>
 
 
         
@@ -384,7 +448,7 @@
 
 <div class="page__footer-container" style="display:flex; justify-content:space-between; align-items:center; font-size:10pt; padding:0 0;">
     <div style="text-align:left;">
-        Site last updated 2025-08-21
+        Site last updated 2025-08-23
       </div>
     <div style="text-align:right;">
       &copy; 2025 Tian Zhou,
