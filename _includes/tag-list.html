@@ -15,7 +15,7 @@
   {% capture page_tags %}{% for tag in page.tags %}{{ tag | downcase }}#{{ tag }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
   {% assign tag_hashes = (page_tags | split: ',' | sort:0) %}
 
-  <p class="page__taxonomy">
+  <p class="page__taxonomy" style="margin-top: 2em;">
     <strong><i class="fa fa-fw fa-tags" aria-hidden="true"></i> {{ site.data.ui-text[site.locale].tags_label | default: "Tags:" }} </strong>
     <span itemprop="keywords">
     {% for hash in tag_hashes %}

@@ -32,7 +32,7 @@
 }
 
 .archive__subtitle {
-  margin: 1.414em 0 1em;
+  margin: 7.5pt 0;
   padding-bottom: 0.5em;
   font-size: $type-size-5;
   color: var(--global-text-color-light);
@@ -44,7 +44,7 @@
 }
 
 .archive__item-title {
-  margin: 15pt 0;
+  margin: 7.5pt 0;
   font-family: $sans-serif-narrow;
 
   a + a {
@@ -63,14 +63,15 @@
 }
 
 .page__date {
-  font-size: $type-size-5;
-  margin: 5pt 0;
+  font-size: 10pt;
+  margin: 2pt 0;
   color: var(--global-text-color-light);
 }
 
 .archive__item-excerpt {
-  margin: 10pt 0;
-  font-size: $type-size-5;
+  margin-top: 0.5em;
+  margin-bottom: 0;
+  font-size: 12pt;
 
   & + p {
     text-indent: 0;
@@ -114,7 +115,7 @@
 //   }
 
   .page__meta {
-    margin: 7.5px 0;
+    margin: 5px 0;
   }
 }
 
@@ -252,5 +253,80 @@
         width: span(7 of 12);
       }
     }
+  }
+}
+
+/* Card Layout Styles */
+
+.card {
+  background: var(--global-bg-color);
+  color: var(--global-text-color);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
+  margin: 1em 0;
+  padding: 1.5em 1em 1.2em 2em;
+  transition: box-shadow 0.2s;
+  border: 1px solid #ececec;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13), 0 2.5px 8px rgba(0,0,0,0.08);
+}
+
+html[data-theme="dark"] .card {
+  border: 1px solid #525252;
+}
+
+.card__title {
+  font-style: bold;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--global-text-color);
+}
+
+.card__subtitle {
+    font-size: 0.95em;
+    color: var(--global-text-color-light);
+  }
+
+.card__timeline {
+  color: var(--global-text-color-light);
+  font-size: 0.95em;
+  text-align: right;
+  font-style: italic;
+}
+
+.card__content {
+    color: var(--global-text-color);
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5em 0 0;
+    font-size: 12pt;
+}
+
+.card__image {
+    width: 100%;
+    max-height: 200px;
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    margin-bottom: 1em;
+}
+
+.card__icon {
+  width: 1.25em;
+  height: 1.25em;
+  margin: 5pt 15pt 0 0;
+  vertical-align: top;
+  display: flex;
+  font-size: 2em;
+  color: var(--global-text-color-light);
+
+  img, svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }

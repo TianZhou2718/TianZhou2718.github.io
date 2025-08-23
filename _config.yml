@@ -22,13 +22,14 @@ repository               : "TianZhou2718/TianZhou2718.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   avatar           : "avatar.JPG"
+  avatar_custom    : "avatar_alt.jpeg"
   name             : "Tian Zhou"
   pronouns         : 
   bio              : "Hello, I'm Tian! I'm an software developement engineering, and I'm a math enthusiast."
   location         : "Irvine, CA"
   employer         : "Johns Hopkins University"
   uri              : # URL
-  email            : "tianzhou.2718@gmail.org" 
+  email            : "tianzhou.2718@gmail.com" 
 
   # Academic websites
   academia         : # URL
@@ -59,7 +60,7 @@ author:
   keybase          : # Username
   instagram        : # Username
   lastfm           : # Username
-  linkedin         : # Username
+  linkedin         : "tian-zhou-7a117532a"
   mastodon         : # URL
   medium           : # URL
   pinterest        : # Username

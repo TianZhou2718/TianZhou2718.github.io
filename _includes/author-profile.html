@@ -6,12 +6,23 @@
 
 <div itemscope itemtype="http://schema.org/Person">
 
-  <div class="author__avatar">
+  <div class="author__avatar" style="margin-bottom: 1.5em;">
+    <!-- Custom avatar -->
     {% if author.avatar contains "://" %}
-    	<img src="{{ author.avatar }}" alt="{{ author.name }}">
+      <img id="avatar-custom" src="{{ author.avatar_custom }}" class="author__avatar" alt="{{ author.name }}" style="display: block; cursor: pointer;">
     {% else %}
-    	<img src="{{ author.avatar | prepend: "/images/" | prepend: base_path }}" class="author__avatar" alt="{{ author.name }}">
+      <img id="avatar-custom" src="{{ author.avatar_custom | prepend: "/images/" | prepend: base_path }}" class="author__avatar" alt="{{ author.name }}" style="display: block; cursor: pointer;">
     {% endif %}
+    <!-- Real avatar -->
+    {% if author.avatar contains "://" %}
+      <img id="avatar-real" src="{{ author.avatar }}" class="author__avatar" alt="{{ author.name }}" style="display: none; cursor: pointer;">
+    {% else %}
+      <img id="avatar-real" src="{{ author.avatar | prepend: "/images/" | prepend: base_path }}" class="author__avatar" alt="{{ author.name }}" style="display: none; cursor: pointer;">
+    {% endif %}
+    <div id="toggle-avatar-btn" style="margin-top: 5pt; cursor: pointer;">
+        <span style="display: block; text-align: center; margin: 0 auto; font-size: 8pt; color: var(--global-text-color-light);">Toggle Avatar</span>
+    </div>
+    
   </div>
 
   <div class="author__content">
@@ -162,3 +173,5 @@
     </ul>
   </div>
 </div>
+
+<script src="/assets/js/toggle_avatar.js"></script>
