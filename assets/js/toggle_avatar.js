@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', function() {
         var avatar = custom.style.display !== 'none' ? custom : real;
         const funcSetMargin = function() {
             const width = avatar.offsetWidth;
-            console.log(width);
             toggleBtn.style.width = width + "px";
         };
         if (avatar.complete) funcSetMargin();

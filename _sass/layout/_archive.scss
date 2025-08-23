@@ -264,12 +264,12 @@
   border-radius: 12px;
   box-shadow: 0 2px 12px rgba(0,0,0,0.08), 0 1.5px 4px rgba(0,0,0,0.04);
   margin: 1em 0;
-  padding: 1em 1em 1em 1.5em;
+  padding: 1.5em 1em 1.5em 2em;
   transition: box-shadow 0.2s;
   border: 1px solid #ececec;
   display: flex;
-  flex-direction: column;
-  align-items: stretch;
+  flex-direction: row;
+  align-items: flex-start;
 }
 .card:hover {
   box-shadow: 0 6px 24px rgba(0,0,0,0.13), 0 2.5px 8px rgba(0,0,0,0.08);
@@ -283,7 +283,6 @@ html[data-theme="dark"] .card {
   font-style: bold;
   font-size: 1.05em;
   font-weight: 600;
-  margin: 0.5em 0;
   color: var(--global-text-color);
 }
 
@@ -314,4 +313,20 @@ html[data-theme="dark"] .card {
     overflow: hidden;
     border-radius: 8px 8px 0 0;
     margin-bottom: 1em;
+}
+
+.card__icon {
+  width: 1.25em;
+  height: 1.25em;
+  margin: 5pt 15pt 0 0;
+  vertical-align: top;
+  display: flex;
+  font-size: 2em;
+  color: var(--global-text-color-light);
+
+  img, svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
 }
